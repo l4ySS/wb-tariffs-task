@@ -14,11 +14,11 @@ if (!WB_TOKEN) {
  */
 export async function fetchWbTariffs() {
     try {
-        const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+        const today = new Date().toISOString().split("T")[0];
 
         const { data } = await axios.get(WB_API_URL, {
             headers: { Authorization: `Bearer ${WB_TOKEN}` },
-            params: { date: today } // обязательно передаем дату
+            params: { date: today }
         });
 
         return data.response.data;

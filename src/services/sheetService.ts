@@ -1,7 +1,5 @@
 import { google } from "googleapis";
 import knex from "#postgres/knex.js";
-import path from "path";
-import fs from "fs";
 
 const credentialsBASE64 = process.env.GOOGLE_CREDENTIALS_BASE64;
 if (!credentialsBASE64) {
