@@ -14,7 +14,6 @@ function logMigrationResults(action: string, result: [number, string[]]) {
         console.log("- " + migration);
     }
 }
-
 function logMigrationList(list: [{ name: string }[], { file: string }[]]) {
     console.log(`Found ${list[0].length} Completed Migration file/files.`);
     for (const migration of list[0]) {
@@ -24,6 +23,20 @@ function logMigrationList(list: [{ name: string }[], { file: string }[]]) {
     for (const migration of list[1]) {
         console.log("- " + migration.file);
     }
+}
+
+function logSeedRun(result: [string[]]) {
+    if(result[0].length === 0) {
+        console.log("No seeds to run");
+    }
+    console.log(`Ran ${result[0].length} seed files`);
+    for(const seed of result[0]) {
+        console.log("- " + seed?.split(/\/|\\/).pop());
+    }
+}
+
+function logSeedMake(name: string) {
+    console.log(`Created seed: ${name.split(/\/|\\/).pop()}`);
 }
 
 export const migrate = {
@@ -48,5 +61,18 @@ export const migrate = {
             process.exit(1);
         }
         console.log(await knex.migrate.make(name, { extension: "js" }));
+    },
+};
+
+export const seed = {
+    run: async () => {
+        logSeedRun(await knex.seed.run());
+    },
+    make: async (name: string) => {
+        if (!name) {
+            console.error("Please provide a seed name");
+            process.exit(1);
+        }
+        logSeedMake(await knex.seed.make(name));
     },
 };

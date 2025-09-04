@@ -91,7 +91,10 @@ export async function updateSheet(spreadsheetId: string, sheetName: string = "st
 /**
  * Обновление множества таблиц по идентификаторам
  */
-export async function updateMultipleSheets(spreadsheetIds: string[]) {
+export async function updateMultipleSheets() {
+    const rows = await knex("spreadsheets").select('spreadsheet_id');
+    const spreadsheetIds = rows.map(row => row.spreadsheet_id);
+    
     for (const id of spreadsheetIds) {
         await updateSheet(id);
     }

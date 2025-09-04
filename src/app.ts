@@ -1,16 +1,17 @@
 import cron from "node-cron";
 import { updateMultipleSheets } from "#services/sheetService.js";
 import { saveTariffs } from "#services/tariffsService.js";
+import { migrate, seed } from "#postgres/knex.js";
 
-const SHEET_IDS = [
-    "1Hhie7Uh_jeaBz41EkSTxe6XdT1iQQLg6WRp6L0r1Hw8"
-];
+await migrate.latest();
+await seed.run()
 
 cron.schedule("0 * * * *", async () => {
     console.log("Fetching WB tariffs...");
     await saveTariffs();
-    await updateMultipleSheets(SHEET_IDS);
+    await updateMultipleSheets();
 });
 
+// Для теста при старте
 await saveTariffs();
-await updateMultipleSheets(SHEET_IDS);
+await updateMultipleSheets();

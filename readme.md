@@ -28,18 +28,14 @@ WB_JWT_TOKEN=<ваш токен Wildberries>
 GOOGLE_CREDENTIALS_BASE64=<ваш credentials.json в base64>
 ```
 
- GOOGLE_CREDENTIALS_BASE64 — это credentials.json для Google Sheets, закодированный в base64, чтобы не хранить открытые ключи в репозитории.
+GOOGLE_CREDENTIALS_BASE64 — это credentials.json для Google Sheets, закодированный в base64, чтобы не хранить открытые ключи в репозитории.
 
 ## Запуск
 Перед запуском приложения необходимо запустить базу данных:
 ```bash
 docker compose up -d --build postgres
 ```
-И выполнить миграцию
-```bash
-docker compose run --rm migrate
-```
-Дождаться подтверждения выполнения миграции.
+
 Далее можно запустить приложение:
 ```bash
 docker compose up -d --build app
@@ -47,7 +43,6 @@ docker compose up -d --build app
 Финальная проверка:
 ```bash
 docker compose down --rmi local --volumes
-docker compose run --rm migrate
 docker compose up --build
 ```
 ## Разработка
@@ -58,8 +53,5 @@ npm run dev
 ## Примечания
 
 - Для хранения данных в Postgres создаются две таблицы с датами действия тарифа и тарифами для каждого склада
-
-- В этом проекте **не используются seed-файлы**.  
-Все данные для тарифов сохраняются напрямую через API Wildberries и миграции, поэтому seed-файлы фактически не применяются.  
 
 - Из Postgres данные публикуются и регулярно обновляются в таблице https://docs.google.com/spreadsheets/d/1Hhie7Uh_jeaBz41EkSTxe6XdT1iQQLg6WRp6L0r1Hw8/edit?gid=0#gid=0
