@@ -61,6 +61,10 @@ services:
       PORT: ${APP_PORT}
       NODE_ENV: production
 
+      # Секреты
+      WB_JWT_TOKEN: ${WB_JWT_TOKEN}
+      GOOGLE_CREDENTIALS_BASE64: ${GOOGLE_CREDENTIALS_BASE64}
+
     ports:
       - ${APP_PORT}:${APP_PORT}
 
