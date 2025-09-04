@@ -32,7 +32,6 @@ GOOGLE_CREDENTIALS_BASE64=<ваш credentials.json в base64>
 
 ## Запуск
 Перед запуском приложения необходимо запустить базу данных:
-Сборка:
 ```bash
 docker compose up -d --build postgres
 ```
